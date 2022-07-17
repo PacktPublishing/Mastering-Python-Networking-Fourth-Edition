@@ -1,0 +1,6 @@
+terminal length 0
+lax-edg-r2#config t
+Enter configuration commands, one per line.  End with CNTL/Z.
+lax-edg-r2(config)#logging buffered 30000
+lax-edg-r2(config)#end
+lax-edg-r2#copy run start

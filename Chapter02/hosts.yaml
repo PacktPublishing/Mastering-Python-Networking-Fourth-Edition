@@ -1,0 +1,14 @@
+---
+lax-edg-r1:
+    hostname: '192.168.2.51'
+    port: 22
+    username: 'cisco'
+    password: 'cisco'
+    platform: 'cisco_ios'
+
+lax-edg-r2:
+    hostname: '192.168.2.52'
+    port: 22
+    username: 'cisco'
+    password: 'cisco'
+    platform: 'cisco_ios'
