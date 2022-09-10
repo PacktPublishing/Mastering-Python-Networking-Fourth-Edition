@@ -1,0 +1,16 @@
+---
+- name: IOS command output for when clause
+  hosts: ios_devices
+  gather_facts: false
+  tasks:
+    - name: show hostname
+      ios_command:
+        commands:
+            - show run | i hostname
+      register: output
+
+    - name: show output with when conditions
+      when: output.stdout == ["hostname nyc-edg-r2"]
+      debug: 
+        msg: '{{ output }}'
+

@@ -1,0 +1,2599 @@
+
+PLAY [IOS network facts] *******************************************************
+
+TASK [Gathering facts via ios_facts module] ************************************
+ok: [lax-edg-r2]
+ok: [lax-edg-r1]
+ok: [nyc-edg-r1]
+ok: [nyc-edg-r2]
+
+TASK [Display certain facts] ***************************************************
+ok: [lax-edg-r1] => {
+    "msg": "The hostname is lax-edg-r1 running 15.8(3)M2"
+}
+ok: [lax-edg-r2] => {
+    "msg": "The hostname is lax-edg-r2 running 15.8(3)M2"
+}
+ok: [nyc-edg-r1] => {
+    "msg": "The hostname is nyc-edg-r1 running 15.8(3)M2"
+}
+ok: [nyc-edg-r2] => {
+    "msg": "The hostname is nyc-edg-r2 running 15.8(3)M2"
+}
+
+TASK [Display all facts for hosts] *********************************************
+ok: [lax-edg-r1] => {
+    "hostvars": {
+        "lax-cor-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {},
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.50",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_network_os": "nxos",
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "lax_cor_devices",
+                "lax_dc",
+                "nxos_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "lax-cor-r1",
+            "inventory_hostname_short": "lax-cor-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "lax-edg-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "lax-edg-r1",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "98U40DKV403INHIULHYHB",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.51",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "lax-edg-r1",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "98U40DKV403INHIULHYHB",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "lax_dc",
+                "lax_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "lax-edg-r1",
+            "inventory_hostname_short": "lax-edg-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "lax-edg-r2": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "lax-edg-r2",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "9JJQQWLCD88AW5ENAR3Y5",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.52",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "lax-edg-r2",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "9JJQQWLCD88AW5ENAR3Y5",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "lax_dc",
+                "lax_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "lax-edg-r2",
+            "inventory_hostname_short": "lax-edg-r2",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "nyc-cor-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {},
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.60",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_network_os": "nxos",
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "nxos_devices",
+                "nyc_cor_devices",
+                "nyc_dc"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "nyc-cor-r1",
+            "inventory_hostname_short": "nyc-cor-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "nyc-edg-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "nyc-edg-r1",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "9KF7REWH9OAOCAH9W1X6B",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.61",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "nyc-edg-r1",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "9KF7REWH9OAOCAH9W1X6B",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "nyc_dc",
+                "nyc_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "nyc-edg-r1",
+            "inventory_hostname_short": "nyc-edg-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "nyc-edg-r2": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "nyc-edg-r2",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "9RLAY6ZU8RB8VVBW3UL80",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.62",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "nyc-edg-r2",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "9RLAY6ZU8RB8VVBW3UL80",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "nyc_dc",
+                "nyc_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "nyc-edg-r2",
+            "inventory_hostname_short": "nyc-edg-r2",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        }
+    }
+}
+ok: [lax-edg-r2] => {
+    "hostvars": {
+        "lax-cor-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {},
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.50",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_network_os": "nxos",
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "lax_cor_devices",
+                "lax_dc",
+                "nxos_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "lax-cor-r1",
+            "inventory_hostname_short": "lax-cor-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "lax-edg-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "lax-edg-r1",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "98U40DKV403INHIULHYHB",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.51",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "lax-edg-r1",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "98U40DKV403INHIULHYHB",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "lax_dc",
+                "lax_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "lax-edg-r1",
+            "inventory_hostname_short": "lax-edg-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "lax-edg-r2": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "lax-edg-r2",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "9JJQQWLCD88AW5ENAR3Y5",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.52",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "lax-edg-r2",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "9JJQQWLCD88AW5ENAR3Y5",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "lax_dc",
+                "lax_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "lax-edg-r2",
+            "inventory_hostname_short": "lax-edg-r2",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "nyc-cor-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {},
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.60",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_network_os": "nxos",
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "nxos_devices",
+                "nyc_cor_devices",
+                "nyc_dc"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "nyc-cor-r1",
+            "inventory_hostname_short": "nyc-cor-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "nyc-edg-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "nyc-edg-r1",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "9KF7REWH9OAOCAH9W1X6B",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.61",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "nyc-edg-r1",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "9KF7REWH9OAOCAH9W1X6B",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "nyc_dc",
+                "nyc_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "nyc-edg-r1",
+            "inventory_hostname_short": "nyc-edg-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "nyc-edg-r2": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "nyc-edg-r2",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "9RLAY6ZU8RB8VVBW3UL80",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.62",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "nyc-edg-r2",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "9RLAY6ZU8RB8VVBW3UL80",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "nyc_dc",
+                "nyc_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "nyc-edg-r2",
+            "inventory_hostname_short": "nyc-edg-r2",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        }
+    }
+}
+ok: [nyc-edg-r1] => {
+    "hostvars": {
+        "lax-cor-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {},
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.50",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_network_os": "nxos",
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "lax_cor_devices",
+                "lax_dc",
+                "nxos_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "lax-cor-r1",
+            "inventory_hostname_short": "lax-cor-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "lax-edg-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "lax-edg-r1",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "98U40DKV403INHIULHYHB",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.51",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "lax-edg-r1",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "98U40DKV403INHIULHYHB",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "lax_dc",
+                "lax_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "lax-edg-r1",
+            "inventory_hostname_short": "lax-edg-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "lax-edg-r2": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "lax-edg-r2",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "9JJQQWLCD88AW5ENAR3Y5",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.52",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "lax-edg-r2",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "9JJQQWLCD88AW5ENAR3Y5",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "lax_dc",
+                "lax_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "lax-edg-r2",
+            "inventory_hostname_short": "lax-edg-r2",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "nyc-cor-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {},
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.60",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_network_os": "nxos",
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "nxos_devices",
+                "nyc_cor_devices",
+                "nyc_dc"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "nyc-cor-r1",
+            "inventory_hostname_short": "nyc-cor-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "nyc-edg-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "nyc-edg-r1",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "9KF7REWH9OAOCAH9W1X6B",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.61",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "nyc-edg-r1",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "9KF7REWH9OAOCAH9W1X6B",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "nyc_dc",
+                "nyc_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "nyc-edg-r1",
+            "inventory_hostname_short": "nyc-edg-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "nyc-edg-r2": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "nyc-edg-r2",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "9RLAY6ZU8RB8VVBW3UL80",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.62",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "nyc-edg-r2",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "9RLAY6ZU8RB8VVBW3UL80",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "nyc_dc",
+                "nyc_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "nyc-edg-r2",
+            "inventory_hostname_short": "nyc-edg-r2",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        }
+    }
+}
+ok: [nyc-edg-r2] => {
+    "hostvars": {
+        "lax-cor-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {},
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.50",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_network_os": "nxos",
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "lax_cor_devices",
+                "lax_dc",
+                "nxos_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "lax-cor-r1",
+            "inventory_hostname_short": "lax-cor-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "lax-edg-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "lax-edg-r1",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "98U40DKV403INHIULHYHB",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.51",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "lax-edg-r1",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "98U40DKV403INHIULHYHB",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "lax_dc",
+                "lax_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "lax-edg-r1",
+            "inventory_hostname_short": "lax-edg-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "lax-edg-r2": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "lax-edg-r2",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "9JJQQWLCD88AW5ENAR3Y5",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.52",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "lax-edg-r2",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "9JJQQWLCD88AW5ENAR3Y5",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "lax_dc",
+                "lax_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "lax-edg-r2",
+            "inventory_hostname_short": "lax-edg-r2",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "nyc-cor-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {},
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.60",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_network_os": "nxos",
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "nxos_devices",
+                "nyc_cor_devices",
+                "nyc_dc"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "nyc-cor-r1",
+            "inventory_hostname_short": "nyc-cor-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "nyc-edg-r1": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "nyc-edg-r1",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "9KF7REWH9OAOCAH9W1X6B",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.61",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "nyc-edg-r1",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "9KF7REWH9OAOCAH9W1X6B",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "nyc_dc",
+                "nyc_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "nyc-edg-r1",
+            "inventory_hostname_short": "nyc-edg-r1",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        },
+        "nyc-edg-r2": {
+            "ansbile_become": true,
+            "ansible_become_method": "enable",
+            "ansible_become_pass": "cisco",
+            "ansible_check_mode": false,
+            "ansible_config_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/ansible.cfg",
+            "ansible_connection": "network_cli",
+            "ansible_diff_mode": false,
+            "ansible_facts": {
+                "net_api": "cliconf",
+                "net_gather_network_resources": [],
+                "net_gather_subset": [
+                    "default"
+                ],
+                "net_hostname": "nyc-edg-r2",
+                "net_image": "flash0:/vios-adventerprisek9-m",
+                "net_iostype": "IOS",
+                "net_model": "IOSv",
+                "net_python_version": "3.10.4",
+                "net_serialnum": "9RLAY6ZU8RB8VVBW3UL80",
+                "net_system": "ios",
+                "net_version": "15.8(3)M2",
+                "network_resources": {}
+            },
+            "ansible_forks": 5,
+            "ansible_host": "192.168.2.62",
+            "ansible_inventory_sources": [
+                "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full"
+            ],
+            "ansible_net_api": "cliconf",
+            "ansible_net_gather_network_resources": [],
+            "ansible_net_gather_subset": [
+                "default"
+            ],
+            "ansible_net_hostname": "nyc-edg-r2",
+            "ansible_net_image": "flash0:/vios-adventerprisek9-m",
+            "ansible_net_iostype": "IOS",
+            "ansible_net_model": "IOSv",
+            "ansible_net_python_version": "3.10.4",
+            "ansible_net_serialnum": "9RLAY6ZU8RB8VVBW3UL80",
+            "ansible_net_system": "ios",
+            "ansible_net_version": "15.8(3)M2",
+            "ansible_network_os": "ios",
+            "ansible_network_resources": {},
+            "ansible_playbook_python": "/home/echou/Mastering_Python_Networking_Fourth_Edition/venv/bin/python3",
+            "ansible_run_tags": [
+                "all"
+            ],
+            "ansible_skip_tags": [],
+            "ansible_ssh_pass": "cisco",
+            "ansible_user": "cisco",
+            "ansible_verbosity": 0,
+            "ansible_version": {
+                "full": "2.13.3",
+                "major": 2,
+                "minor": 13,
+                "revision": 3,
+                "string": "2.13.3"
+            },
+            "group_names": [
+                "ios_devices",
+                "nyc_dc",
+                "nyc_edg_devices"
+            ],
+            "groups": {
+                "all": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2",
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "ios_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "lax_cor_devices": [
+                    "lax-cor-r1"
+                ],
+                "lax_dc": [
+                    "lax-cor-r1",
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "lax_edg_devices": [
+                    "lax-edg-r1",
+                    "lax-edg-r2"
+                ],
+                "nxos_devices": [
+                    "nyc-cor-r1",
+                    "lax-cor-r1"
+                ],
+                "nyc_cor_devices": [
+                    "nyc-cor-r1"
+                ],
+                "nyc_dc": [
+                    "nyc-cor-r1",
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "nyc_edg_devices": [
+                    "nyc-edg-r1",
+                    "nyc-edg-r2"
+                ],
+                "ungrouped": []
+            },
+            "inventory_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04",
+            "inventory_file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/hosts_full",
+            "inventory_hostname": "nyc-edg-r2",
+            "inventory_hostname_short": "nyc-edg-r2",
+            "omit": "__omit_place_holder__90c36f6aca02a690a1d0551a60402c385ed105ce",
+            "playbook_dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04"
+        }
+    }
+}
+
+PLAY RECAP *********************************************************************
+lax-edg-r1                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+lax-edg-r2                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+nyc-edg-r1                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+nyc-edg-r2                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

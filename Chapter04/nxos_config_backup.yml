@@ -1,0 +1,9 @@
+---
+- name: Back Up NX-OS Device Configurations
+  hosts: nxos_devices
+  gather_facts: false
+  tasks:
+    - name: backup
+      nxos_config:
+        backup: yes
+

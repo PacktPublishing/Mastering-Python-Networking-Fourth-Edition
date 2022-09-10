@@ -1,0 +1,9 @@
+---
+- name: Template Basic
+  hosts: localhost
+
+  tasks:
+    - name: copy one file to another
+      template:
+        src=/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/Templates/file1
+        dest=/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter04/Templates/file2
