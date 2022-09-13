@@ -1,0 +1,8 @@
+all:
+  children:
+    srl:
+      hosts:
+        clab-srl02-srl1:
+          ansible_host: 172.20.20.3
+        clab-srl02-srl2:
+          ansible_host: 172.20.20.2

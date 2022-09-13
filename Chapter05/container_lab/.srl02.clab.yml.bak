@@ -1,0 +1,19 @@
+# topology documentation: http://containerlab.dev/lab-examples/two-srls/
+# https://github.com/srl-labs/containerlab/blob/main/lab-examples/srl02/srl02.clab.yml
+name: srl02
+
+topology:
+  nodes:
+    srl1:
+      kind: srl
+      image: ghcr.io/nokia/srlinux
+      startup-config: srl1.cfg
+    srl2:
+      kind: srl
+      image: ghcr.io/nokia/srlinux
+      startup-config: srl2.cfg
+
+  links:
+    - endpoints: ["srl1:e1-1", "srl2:e1-1"]
+
+

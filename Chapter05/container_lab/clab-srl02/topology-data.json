@@ -1,0 +1,91 @@
+{
+  "name": "srl02",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "clab",
+        "bridge": "br-4807fa9091c5",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "ipv6-subnet": "2001:172:20:20::/64",
+        "ipv6-gw": "2001:172:20:20::1",
+        "mtu": "1500",
+        "external-access": true
+      }
+    }
+  },
+  "nodes": {
+    "srl1": {
+      "index": "0",
+      "shortname": "srl1",
+      "longname": "clab-srl02-srl1",
+      "fqdn": "srl1.srl02.io",
+      "group": "",
+      "labdir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter05/container_lab/clab-srl02/srl1",
+      "kind": "srl",
+      "image": "ghcr.io/nokia/srlinux",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.3",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::3",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-4807fa9091c5",
+        "clab-node-group": "",
+        "clab-node-kind": "srl",
+        "clab-node-lab-dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter05/container_lab/clab-srl02/srl1",
+        "clab-node-name": "srl1",
+        "clab-node-type": "ixrd2",
+        "clab-topo-file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter05/container_lab/srl02.clab.yml",
+        "containerlab": "srl02"
+      }
+    },
+    "srl2": {
+      "index": "1",
+      "shortname": "srl2",
+      "longname": "clab-srl02-srl2",
+      "fqdn": "srl2.srl02.io",
+      "group": "",
+      "labdir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter05/container_lab/clab-srl02/srl2",
+      "kind": "srl",
+      "image": "ghcr.io/nokia/srlinux",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.2",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::2",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-4807fa9091c5",
+        "clab-node-group": "",
+        "clab-node-kind": "srl",
+        "clab-node-lab-dir": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter05/container_lab/clab-srl02/srl2",
+        "clab-node-name": "srl2",
+        "clab-node-type": "ixrd2",
+        "clab-topo-file": "/home/echou/Mastering_Python_Networking_Fourth_Edition/Chapter05/container_lab/srl02.clab.yml",
+        "containerlab": "srl02"
+      }
+    }
+  },
+  "links": [
+    {
+      "a": {
+        "node": "srl1",
+        "interface": "e1-1",
+        "mac": "aa:c1:ab:04:fc:b3",
+        "peer": "z"
+      },
+      "z": {
+        "node": "srl2",
+        "interface": "e1-1",
+        "mac": "aa:c1:ab:08:0b:b7",
+        "peer": "a"
+      }
+    }
+  ]
+}
