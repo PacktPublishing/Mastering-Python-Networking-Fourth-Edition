@@ -1,0 +1,1498 @@
+lab:
+  description: Imported from chapter7_topology.virl
+  notes: |-
+    ## Import Progress
+    - processing node /r1 (iosv)
+    - processing node /r2 (iosv)
+    - processing node /r3 (iosv)
+    - processing node /r5 (iosv)
+    - processing node /r6 (iosv)
+    - processing node /Client (server)
+    - cloud-config converted for /Client (server)
+    - processing node /Server (server)
+    - cloud-config converted for /Server (server)
+    - link GigabitEthernet0/1.r1 -> GigabitEthernet0/1.r6
+    - link GigabitEthernet0/2.r1 -> GigabitEthernet0/1.r5
+    - link GigabitEthernet0/2.r6 -> GigabitEthernet0/1.r2
+    - link GigabitEthernet0/2.r2 -> GigabitEthernet0/2.r5
+    - link GigabitEthernet0/3.r6 -> GigabitEthernet0/1.r3
+    - link GigabitEthernet0/2.r3 -> GigabitEthernet0/3.r5
+    - link GigabitEthernet0/4.r6 -> eth1.Client
+    - link GigabitEthernet0/4.r5 -> eth1.Server
+  timestamp: 1663427335.7694232
+  title: chapter7_topology.yml
+  version: 0.0.4
+nodes:
+  - id: n0
+    label: r1
+    node_definition: iosv
+    x: 0
+    y: 150
+    configuration: |-
+      Building configuration...
+
+
+      Current configuration : 4813 bytes
+      !
+      ! Last configuration change at 18:49:59 UTC Sun Sep 18 2022
+      !
+      version 15.8
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      !
+      hostname r1
+      !
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      vrf definition Mgmt-intf
+       !
+       address-family ipv4
+       exit-address-family
+       !
+       address-family ipv6
+       exit-address-family
+      !
+      no logging console
+      enable password cisco
+      !
+      no aaa new-model
+      !
+      !
+      !
+      mmi polling-interval 60
+      no mmi auto-configure
+      no mmi pvc
+      mmi snmp-timeout 180
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      no ip domain lookup
+      ip domain name virl.info
+      ip cef
+      ipv6 unicast-routing
+      ipv6 cef
+      !
+      multilink bundle-name authenticated
+      !
+      !
+      !
+      !
+      username cisco privilege 15 secret 5 $1$/dbO$/XDiB0ev7kZBuPR3g5XoJ/
+      !
+      redundancy
+      !
+      lldp run
+      no cdp run
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      interface Loopback0
+       description Loopback
+       ip address 192.168.0.1 255.255.255.255
+      !
+      interface GigabitEthernet0/0
+       description OOB Management
+       vrf forwarding Mgmt-intf
+       ip address 192.168.2.218 255.255.255.0
+       ip flow ingress
+       ip flow egress
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/1
+       description to r6
+       ip address 10.0.0.17 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/2
+       description to r5
+       ip address 10.0.0.13 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      router ospf 1
+       passive-interface Loopback0
+       network 10.0.0.12 0.0.0.3 area 0
+       network 10.0.0.16 0.0.0.3 area 0
+       network 192.168.0.1 0.0.0.0 area 0
+      !
+      router bgp 1
+       bgp router-id 192.168.0.1
+       bgp log-neighbor-changes
+       neighbor 192.168.0.2 remote-as 1
+       neighbor 192.168.0.2 description iBGP peer r2
+       neighbor 192.168.0.2 update-source Loopback0
+       neighbor 192.168.0.3 remote-as 1
+       neighbor 192.168.0.3 description iBGP peer r3
+       neighbor 192.168.0.3 update-source Loopback0
+       neighbor 192.168.0.4 remote-as 1
+       neighbor 192.168.0.4 description iBGP peer r5
+       neighbor 192.168.0.4 update-source Loopback0
+       neighbor 192.168.0.5 remote-as 1
+       neighbor 192.168.0.5 description iBGP peer r6
+       neighbor 192.168.0.5 update-source Loopback0
+       !
+       address-family ipv4
+        network 192.168.0.1 mask 255.255.255.255
+        neighbor 192.168.0.2 activate
+        neighbor 192.168.0.3 activate
+        neighbor 192.168.0.4 activate
+        neighbor 192.168.0.5 activate
+       exit-address-family
+      !
+      ip forward-protocol nd
+      !
+      ip flow-export version 5
+      ip flow-export destination 172.16.1.173 5556 vrf Mgmt-intf
+      !
+      no ip http server
+      no ip http secure-server
+      ip ssh server algorithm authentication password
+      !
+      ip access-list standard permit_snmp
+       permit 192.168.2.126 log
+       permit 192.168.2.124 log
+       deny   any log
+      !
+      ipv6 ioam timestamp
+      !
+      snmp-server community secret RO permit_snmp
+      snmp-server chassis-id
+      !
+      !
+      control-plane
+      !
+      banner exec ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      banner incoming ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      banner login ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      !
+      line con 0
+       exec-timeout 0 0
+       password cisco
+      line aux 0
+      line vty 0 4
+       exec-timeout 720 0
+       password cisco
+       login local
+       transport input telnet ssh
+      !
+      no scheduler allocate
+      !
+      end
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i1
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+      - id: i2
+        slot: 2
+        label: GigabitEthernet0/2
+        type: physical
+  - id: n1
+    label: r2
+    node_definition: iosv
+    x: 150
+    y: 150
+    configuration: |-
+      Building configuration...
+
+
+      Current configuration : 4787 bytes
+      !
+      ! Last configuration change at 18:45:12 UTC Sun Sep 18 2022
+      !
+      version 15.8
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      !
+      hostname r2
+      !
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      vrf definition Mgmt-intf
+       !
+       address-family ipv4
+       exit-address-family
+       !
+       address-family ipv6
+       exit-address-family
+      !
+      no logging console
+      enable password cisco
+      !
+      no aaa new-model
+      !
+      !
+      !
+      mmi polling-interval 60
+      no mmi auto-configure
+      no mmi pvc
+      mmi snmp-timeout 180
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      no ip domain lookup
+      ip domain name virl.info
+      ip cef
+      ipv6 unicast-routing
+      ipv6 cef
+      !
+      multilink bundle-name authenticated
+      !
+      !
+      !
+      !
+      username cisco privilege 15 secret 5 $1$1XV3$rnRk96n0k5W4Xb3oLTYlP/
+      !
+      redundancy
+      !
+      lldp run
+      no cdp run
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      interface Loopback0
+       description Loopback
+       ip address 192.168.0.2 255.255.255.255
+      !
+      interface GigabitEthernet0/0
+       description OOB Management
+       vrf forwarding Mgmt-intf
+       ip address 192.168.2.219 255.255.255.0
+       ip flow ingress
+       ip flow egress
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/1
+       description to r6
+       ip address 10.0.0.25 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/2
+       description to r5
+       ip address 10.0.0.21 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      router ospf 1
+       passive-interface Loopback0
+       network 10.0.0.20 0.0.0.3 area 0
+       network 10.0.0.24 0.0.0.3 area 0
+       network 192.168.0.2 0.0.0.0 area 0
+      !
+      router bgp 1
+       bgp router-id 192.168.0.2
+       bgp log-neighbor-changes
+       neighbor 192.168.0.1 remote-as 1
+       neighbor 192.168.0.1 description iBGP peer r1
+       neighbor 192.168.0.1 update-source Loopback0
+       neighbor 192.168.0.3 remote-as 1
+       neighbor 192.168.0.3 description iBGP peer r3
+       neighbor 192.168.0.3 update-source Loopback0
+       neighbor 192.168.0.4 remote-as 1
+       neighbor 192.168.0.4 description iBGP peer r5
+       neighbor 192.168.0.4 update-source Loopback0
+       neighbor 192.168.0.5 remote-as 1
+       neighbor 192.168.0.5 description iBGP peer r6
+       neighbor 192.168.0.5 update-source Loopback0
+       !
+       address-family ipv4
+        network 192.168.0.2 mask 255.255.255.255
+        neighbor 192.168.0.1 activate
+        neighbor 192.168.0.3 activate
+        neighbor 192.168.0.4 activate
+        neighbor 192.168.0.5 activate
+       exit-address-family
+      !
+      ip forward-protocol nd
+      !
+      ip flow-export version 5
+      ip flow-export destination 172.16.1.173 5556 vrf Mgmt-intf
+      !
+      no ip http server
+      no ip http secure-server
+      ip ssh server algorithm authentication password
+      !
+      ip access-list standard permit_snmp
+       permit 192.168.2.126 log
+       deny   any log
+      !
+      ipv6 ioam timestamp
+      !
+      snmp-server community secret RO permit_snmp
+      snmp-server chassis-id
+      !
+      !
+      control-plane
+      !
+      banner exec ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      banner incoming ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      banner login ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      !
+      line con 0
+       exec-timeout 0 0
+       password cisco
+      line aux 0
+      line vty 0 4
+       exec-timeout 720 0
+       password cisco
+       login local
+       transport input telnet ssh
+      !
+      no scheduler allocate
+      !
+      end
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i1
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+      - id: i2
+        slot: 2
+        label: GigabitEthernet0/2
+        type: physical
+  - id: n2
+    label: r3
+    node_definition: iosv
+    x: 300
+    y: 150
+    configuration: |-
+      Building configuration...
+
+
+      Current configuration : 4787 bytes
+      !
+      ! Last configuration change at 18:45:42 UTC Sun Sep 18 2022
+      !
+      version 15.8
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      !
+      hostname r3
+      !
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      vrf definition Mgmt-intf
+       !
+       address-family ipv4
+       exit-address-family
+       !
+       address-family ipv6
+       exit-address-family
+      !
+      no logging console
+      enable password cisco
+      !
+      no aaa new-model
+      !
+      !
+      !
+      mmi polling-interval 60
+      no mmi auto-configure
+      no mmi pvc
+      mmi snmp-timeout 180
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      no ip domain lookup
+      ip domain name virl.info
+      ip cef
+      ipv6 unicast-routing
+      ipv6 cef
+      !
+      multilink bundle-name authenticated
+      !
+      !
+      !
+      !
+      username cisco privilege 15 secret 5 $1$k/it$TYpu/GxK493aiJKvapiOJ/
+      !
+      redundancy
+      !
+      lldp run
+      no cdp run
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      interface Loopback0
+       description Loopback
+       ip address 192.168.0.3 255.255.255.255
+      !
+      interface GigabitEthernet0/0
+       description OOB Management
+       vrf forwarding Mgmt-intf
+       ip address 192.168.2.220 255.255.255.0
+       ip flow ingress
+       ip flow egress
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/1
+       description to r6
+       ip address 10.0.0.33 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/2
+       description to r5
+       ip address 10.0.0.29 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      router ospf 1
+       passive-interface Loopback0
+       network 10.0.0.28 0.0.0.3 area 0
+       network 10.0.0.32 0.0.0.3 area 0
+       network 192.168.0.3 0.0.0.0 area 0
+      !
+      router bgp 1
+       bgp router-id 192.168.0.3
+       bgp log-neighbor-changes
+       neighbor 192.168.0.1 remote-as 1
+       neighbor 192.168.0.1 description iBGP peer r1
+       neighbor 192.168.0.1 update-source Loopback0
+       neighbor 192.168.0.2 remote-as 1
+       neighbor 192.168.0.2 description iBGP peer r2
+       neighbor 192.168.0.2 update-source Loopback0
+       neighbor 192.168.0.4 remote-as 1
+       neighbor 192.168.0.4 description iBGP peer r5
+       neighbor 192.168.0.4 update-source Loopback0
+       neighbor 192.168.0.5 remote-as 1
+       neighbor 192.168.0.5 description iBGP peer r6
+       neighbor 192.168.0.5 update-source Loopback0
+       !
+       address-family ipv4
+        network 192.168.0.3 mask 255.255.255.255
+        neighbor 192.168.0.1 activate
+        neighbor 192.168.0.2 activate
+        neighbor 192.168.0.4 activate
+        neighbor 192.168.0.5 activate
+       exit-address-family
+      !
+      ip forward-protocol nd
+      !
+      ip flow-export version 5
+      ip flow-export destination 172.16.1.173 5556 vrf Mgmt-intf
+      !
+      no ip http server
+      no ip http secure-server
+      ip ssh server algorithm authentication password
+      !
+      ip access-list standard permit_snmp
+       permit 192.168.2.126 log
+       deny   any log
+      !
+      ipv6 ioam timestamp
+      !
+      snmp-server community secret RO permit_snmp
+      snmp-server chassis-id
+      !
+      !
+      control-plane
+      !
+      banner exec ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      banner incoming ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      banner login ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      !
+      line con 0
+       exec-timeout 0 0
+       password cisco
+      line aux 0
+      line vty 0 4
+       exec-timeout 720 0
+       password cisco
+       login local
+       transport input telnet ssh
+      !
+      no scheduler allocate
+      !
+      end
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i1
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+      - id: i2
+        slot: 2
+        label: GigabitEthernet0/2
+        type: physical
+  - id: n3
+    label: r5
+    node_definition: iosv
+    x: 150
+    y: 300
+    configuration: |-
+      Building configuration...
+
+      Current configuration : 5215 bytes
+      !
+      ! Last configuration change at 18:41:39 UTC Sun Sep 18 2022
+      !
+      version 15.8
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      !
+      hostname r5
+      !
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      vrf definition Mgmt-intf
+       !
+       address-family ipv4
+       exit-address-family
+       !
+       address-family ipv6
+       exit-address-family
+      !
+      no logging console
+      enable password cisco
+      !
+      no aaa new-model
+      !
+      !
+      !
+      mmi polling-interval 60
+      no mmi auto-configure
+      no mmi pvc
+      mmi snmp-timeout 180
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      no ip domain lookup
+      ip domain name virl.info
+      ip cef
+      ipv6 unicast-routing
+      ipv6 cef
+      !
+      multilink bundle-name authenticated
+      !
+      !
+      !
+      !
+      username cisco privilege 15 secret 5 $1$jpAd$aei9z5S88dVn3OyFgdb5W.
+      !
+      redundancy
+      !
+      lldp run
+      no cdp run
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      interface Loopback0
+       description Loopback
+       ip address 192.168.0.4 255.255.255.255
+      !
+      interface GigabitEthernet0/0
+       description OOB Management
+       vrf forwarding Mgmt-intf
+       ip address 192.168.2.221 255.255.255.0
+       ip flow ingress
+       ip flow egress
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/1
+       description to r1
+       ip address 10.0.0.14 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/2
+       description to r2
+       ip address 10.0.0.22 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/3
+       description to r3
+       ip address 10.0.0.30 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/4
+       description to Server
+       ip address 10.0.0.6 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      router ospf 1
+       passive-interface Loopback0
+       network 10.0.0.4 0.0.0.3 area 0
+       network 10.0.0.12 0.0.0.3 area 0
+       network 10.0.0.20 0.0.0.3 area 0
+       network 10.0.0.28 0.0.0.3 area 0
+       network 192.168.0.4 0.0.0.0 area 0
+      !
+      router bgp 1
+       bgp router-id 192.168.0.4
+       bgp log-neighbor-changes
+       neighbor 192.168.0.1 remote-as 1
+       neighbor 192.168.0.1 description iBGP peer r1
+       neighbor 192.168.0.1 update-source Loopback0
+       neighbor 192.168.0.2 remote-as 1
+       neighbor 192.168.0.2 description iBGP peer r2
+       neighbor 192.168.0.2 update-source Loopback0
+       neighbor 192.168.0.3 remote-as 1
+       neighbor 192.168.0.3 description iBGP peer r3
+       neighbor 192.168.0.3 update-source Loopback0
+       neighbor 192.168.0.5 remote-as 1
+       neighbor 192.168.0.5 description iBGP peer r6
+       neighbor 192.168.0.5 update-source Loopback0
+       !
+       address-family ipv4
+        network 192.168.0.4 mask 255.255.255.255
+        neighbor 192.168.0.1 activate
+        neighbor 192.168.0.2 activate
+        neighbor 192.168.0.3 activate
+        neighbor 192.168.0.5 activate
+       exit-address-family
+      !
+      ip forward-protocol nd
+      !
+      ip flow-export version 5
+      ip flow-export destination 172.16.1.173 5556 vrf Mgmt-intf
+      !
+      no ip http server
+      no ip http secure-server
+      ip ssh server algorithm authentication password
+      !
+      ip access-list standard permit_snmp
+       permit 192.168.2.126 log
+       deny   any log
+      !
+      ipv6 ioam timestamp
+      !
+      snmp-server community secret RO permit_snmp
+      snmp-server chassis-id
+      !
+      !
+      control-plane
+      !
+      banner exec ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      banner incoming ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      banner login ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      !
+      line con 0
+       exec-timeout 0 0
+       password cisco
+      line aux 0
+      line vty 0 4
+       exec-timeout 720 0
+       password cisco
+       login local
+       transport input telnet ssh
+      !
+      no scheduler allocate
+      !
+      end
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i1
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+      - id: i2
+        slot: 2
+        label: GigabitEthernet0/2
+        type: physical
+      - id: i3
+        slot: 3
+        label: GigabitEthernet0/3
+        type: physical
+      - id: i4
+        slot: 4
+        label: GigabitEthernet0/4
+        type: physical
+  - id: n4
+    label: r6
+    node_definition: iosv
+    x: 150
+    y: 50
+    configuration: |-
+      Building configuration...
+
+
+      Current configuration : 5205 bytes
+      !
+      ! Last configuration change at 18:42:54 UTC Sun Sep 18 2022
+      !
+      version 15.8
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      !
+      hostname r6
+      !
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      vrf definition Mgmt-intf
+       !
+       address-family ipv4
+       exit-address-family
+       !
+       address-family ipv6
+       exit-address-family
+      !
+      no logging console
+      enable password cisco
+      !
+      no aaa new-model
+      !
+      !
+      !
+      mmi polling-interval 60
+      no mmi auto-configure
+      no mmi pvc
+      mmi snmp-timeout 180
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      no ip domain lookup
+      ip domain name virl.info
+      ip cef
+      ipv6 unicast-routing
+      ipv6 cef
+      !
+      multilink bundle-name authenticated
+      !
+      !
+      !
+      !
+      username cisco privilege 15 secret 5 $1$Ln6O$xyMEhR0xXZyOBI6gQP3hF/
+      !
+      redundancy
+      !
+      lldp run
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      interface Loopback0
+       description Loopback
+       ip address 192.168.0.5 255.255.255.255
+      !
+      interface GigabitEthernet0/0
+       description OOB Management
+       vrf forwarding Mgmt-intf
+       ip address 192.168.2.222 255.255.255.0
+       ip flow ingress
+       ip flow egress
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/1
+       description to r1
+       ip address 10.0.0.18 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/2
+       description to r2
+       ip address 10.0.0.26 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/3
+       description to r3
+       ip address 10.0.0.34 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/4
+       description to Client
+       ip address 10.0.0.10 255.255.255.252
+       ip flow ingress
+       ip flow egress
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      router ospf 1
+       passive-interface Loopback0
+       network 10.0.0.8 0.0.0.3 area 0
+       network 10.0.0.16 0.0.0.3 area 0
+       network 10.0.0.24 0.0.0.3 area 0
+       network 10.0.0.32 0.0.0.3 area 0
+       network 192.168.0.5 0.0.0.0 area 0
+      !
+      router bgp 1
+       bgp router-id 192.168.0.5
+       bgp log-neighbor-changes
+       neighbor 192.168.0.1 remote-as 1
+       neighbor 192.168.0.1 description iBGP peer r1
+       neighbor 192.168.0.1 update-source Loopback0
+       neighbor 192.168.0.2 remote-as 1
+       neighbor 192.168.0.2 description iBGP peer r2
+       neighbor 192.168.0.2 update-source Loopback0
+       neighbor 192.168.0.3 remote-as 1
+       neighbor 192.168.0.3 description iBGP peer r3
+       neighbor 192.168.0.3 update-source Loopback0
+       neighbor 192.168.0.4 remote-as 1
+       neighbor 192.168.0.4 description iBGP peer r5
+       neighbor 192.168.0.4 update-source Loopback0
+       !
+       address-family ipv4
+        network 192.168.0.5 mask 255.255.255.255
+        neighbor 192.168.0.1 activate
+        neighbor 192.168.0.2 activate
+        neighbor 192.168.0.3 activate
+        neighbor 192.168.0.4 activate
+       exit-address-family
+      !
+      ip forward-protocol nd
+      !
+      ip flow-export version 5
+      ip flow-export destination 172.16.1.173 5556 vrf Mgmt-intf
+      !
+      no ip http server
+      no ip http secure-server
+      ip ssh server algorithm authentication password
+      !
+      ip access-list standard permit_snmp
+       permit 192.168.2.126 log
+       deny   any log
+      !
+      ipv6 ioam timestamp
+      !
+      snmp-server community secret RO permit_snmp
+      snmp-server chassis-id
+      !
+      !
+      control-plane
+      !
+      banner exec ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      banner incoming ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      banner login ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      !
+      line con 0
+       exec-timeout 0 0
+       password cisco
+      line aux 0
+      line vty 0 4
+       exec-timeout 720 0
+       password cisco
+       login local
+       transport input telnet ssh
+      !
+      no scheduler allocate
+      !
+      end
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i1
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+      - id: i2
+        slot: 2
+        label: GigabitEthernet0/2
+        type: physical
+      - id: i3
+        slot: 3
+        label: GigabitEthernet0/3
+        type: physical
+      - id: i4
+        slot: 4
+        label: GigabitEthernet0/4
+        type: physical
+  - id: n5
+    label: Client
+    node_definition: server
+    x: 0
+    y: 0
+    configuration: |-
+      # converted cloud-config
+      hostname Client
+      ifconfig eth1 up 10.0.0.9 netmask 255.255.255.252
+      route add -net 10.0.0.0/8 gw 10.0.0.10 dev eth1
+      route add -net 192.168.0.0/28 gw 10.0.0.10 dev eth1
+
+      # original cloud-config
+      # #cloud-config
+      # bootcmd:
+      # - ln -s -t /etc/rc.d /etc/rc.local
+      # hostname: Client
+      # manage_etc_hosts: true
+      # runcmd:
+      # - start ttyS0
+      # - systemctl start getty@ttyS0.service
+      # - systemctl start rc-local
+      # - sed -i '/^\s*PasswordAuthentication\s\+no/d' /etc/ssh/sshd_config
+      # - echo "UseDNS no" >> /etc/ssh/sshd_config
+      # - service ssh restart
+      # - service sshd restart
+      # users:
+      # - default
+      # - gecos: User configured by VIRL Configuration Engine 0.23.10
+      #   lock-passwd: false
+      #   name: cisco
+      #   plain-text-passwd: cisco
+      #   shell: /bin/bash
+      #   ssh-authorized-keys:
+      #   - VIRL-USER-SSH-PUBLIC-KEY
+      #   sudo: ALL=(ALL) ALL
+      # write_files:
+      # - path: /etc/init/ttyS0.conf
+      #   owner: root:root
+      #   content: |
+      #     # ttyS0 - getty
+      #     # This service maintains a getty on ttyS0 from the point the system is
+      #     # started until it is shut down again.
+      #     start on stopped rc or RUNLEVEL=[12345]
+      #     stop on runlevel [!12345]
+      #     respawn
+      #     exec /sbin/getty -L 115200 ttyS0 vt102
+      #   permissions: '0644'
+      # - path: /etc/systemd/system/dhclient@.service
+      #   content: |
+      #     [Unit]
+      #     Description=Run dhclient on %i interface
+      #     After=network.target
+      #     [Service]
+      #     Type=oneshot
+      #     ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease
+      #     RemainAfterExit=yes
+      #   owner: root:root
+      #   permissions: '0644'
+      # - path: /etc/rc.local
+      #   owner: root:root
+      #   permissions: '0755'
+      #   content: |-
+      #     #!/bin/sh
+      #     ifconfig eth1 up 10.0.0.9 netmask 255.255.255.252
+      #     route add -net 10.0.0.0/8 gw 10.0.0.10 dev eth1
+      #     route add -net 192.168.0.0/28 gw 10.0.0.10 dev eth1
+      #     exit 0
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: eth0
+        type: physical
+      - id: i1
+        slot: 1
+        label: eth1
+        type: physical
+  - id: n6
+    label: Server
+    node_definition: server
+    x: 400
+    y: 350
+    configuration: |-
+      # converted cloud-config
+      hostname Server
+      ifconfig eth1 up 10.0.0.5 netmask 255.255.255.252
+      route add -net 10.0.0.0/8 gw 10.0.0.6 dev eth1
+      route add -net 192.168.0.0/28 gw 10.0.0.6 dev eth1
+
+      # original cloud-config
+      # #cloud-config
+      # bootcmd:
+      # - ln -s -t /etc/rc.d /etc/rc.local
+      # hostname: Server
+      # manage_etc_hosts: true
+      # runcmd:
+      # - start ttyS0
+      # - systemctl start getty@ttyS0.service
+      # - systemctl start rc-local
+      # - sed -i '/^\s*PasswordAuthentication\s\+no/d' /etc/ssh/sshd_config
+      # - echo "UseDNS no" >> /etc/ssh/sshd_config
+      # - service ssh restart
+      # - service sshd restart
+      # users:
+      # - default
+      # - gecos: User configured by VIRL Configuration Engine 0.23.10
+      #   lock-passwd: false
+      #   name: cisco
+      #   plain-text-passwd: cisco
+      #   shell: /bin/bash
+      #   ssh-authorized-keys:
+      #   - VIRL-USER-SSH-PUBLIC-KEY
+      #   sudo: ALL=(ALL) ALL
+      # write_files:
+      # - path: /etc/init/ttyS0.conf
+      #   owner: root:root
+      #   content: |
+      #     # ttyS0 - getty
+      #     # This service maintains a getty on ttyS0 from the point the system is
+      #     # started until it is shut down again.
+      #     start on stopped rc or RUNLEVEL=[12345]
+      #     stop on runlevel [!12345]
+      #     respawn
+      #     exec /sbin/getty -L 115200 ttyS0 vt102
+      #   permissions: '0644'
+      # - path: /etc/systemd/system/dhclient@.service
+      #   content: |
+      #     [Unit]
+      #     Description=Run dhclient on %i interface
+      #     After=network.target
+      #     [Service]
+      #     Type=oneshot
+      #     ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease
+      #     RemainAfterExit=yes
+      #   owner: root:root
+      #   permissions: '0644'
+      # - path: /etc/rc.local
+      #   owner: root:root
+      #   permissions: '0755'
+      #   content: |-
+      #     #!/bin/sh
+      #     ifconfig eth1 up 10.0.0.5 netmask 255.255.255.252
+      #     route add -net 10.0.0.0/8 gw 10.0.0.6 dev eth1
+      #     route add -net 192.168.0.0/28 gw 10.0.0.6 dev eth1
+      #     exit 0
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: eth0
+        type: physical
+      - id: i1
+        slot: 1
+        label: eth1
+        type: physical
+  - id: n7
+    label: ext-conn-0
+    node_definition: external_connector
+    x: 600
+    y: 0
+    configuration: bridge0
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: port
+        type: physical
+  - id: n8
+    label: unmanaged-switch-0
+    node_definition: unmanaged_switch
+    x: 450
+    y: 0
+    configuration: ''
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: port0
+        type: physical
+      - id: i1
+        slot: 1
+        label: port1
+        type: physical
+      - id: i2
+        slot: 2
+        label: port2
+        type: physical
+      - id: i3
+        slot: 3
+        label: port3
+        type: physical
+      - id: i4
+        slot: 4
+        label: port4
+        type: physical
+      - id: i5
+        slot: 5
+        label: port5
+        type: physical
+      - id: i6
+        slot: 6
+        label: port6
+        type: physical
+      - id: i7
+        slot: 7
+        label: port7
+        type: physical
+links:
+  - id: l0
+    i1: i1
+    n1: n0
+    i2: i1
+    n2: n4
+  - id: l1
+    i1: i2
+    n1: n0
+    i2: i1
+    n2: n3
+  - id: l2
+    i1: i2
+    n1: n4
+    i2: i1
+    n2: n1
+  - id: l3
+    i1: i2
+    n1: n1
+    i2: i2
+    n2: n3
+  - id: l4
+    i1: i3
+    n1: n4
+    i2: i1
+    n2: n2
+  - id: l5
+    i1: i2
+    n1: n2
+    i2: i3
+    n2: n3
+  - id: l6
+    i1: i4
+    n1: n4
+    i2: i1
+    n2: n5
+  - id: l7
+    i1: i4
+    n1: n3
+    i2: i1
+    n2: n6
+  - id: l8
+    i1: i0
+    n1: n7
+    i2: i0
+    n2: n8
+  - id: l9
+    i1: i1
+    n1: n8
+    i2: i0
+    n2: n4
+  - id: l10
+    i1: i2
+    n1: n8
+    i2: i0
+    n2: n0
+  - id: l11
+    i1: i3
+    n1: n8
+    i2: i0
+    n2: n1
+  - id: l12
+    i1: i4
+    n1: n8
+    i2: i0
+    n2: n2
+  - id: l13
+    i1: i5
+    n1: n8
+    i2: i0
+    n2: n3
+  - id: l14
+    i1: i6
+    n1: n8
+    i2: i0
+    n2: n5
+  - id: l15
+    i1: i7
+    n1: n8
+    i2: i0
+    n2: n6
