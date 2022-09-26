@@ -1,0 +1,52 @@
+testbed: 
+    name: Chapter_16_pyATS
+    tacacs: 
+      username: cisco
+    passwords:
+      tacacs: cisco 
+      enable: cisco
+
+devices:
+    lax-edg-r1: 
+       alias: iosv-1
+       type: ios
+       connections:
+         defaults:
+           class: unicon.Unicon  
+         vty:
+           ip: 192.168.2.50
+           protocol: ssh
+
+    lax-cor-r1:
+        alias: nxosv-1
+        type: ios 
+        connections:
+          defaults:
+            class: unicon.Unicon
+          vty:
+            ip: 192.168.2.51
+            protocol: ssh
+
+topology: 
+    lax-edg-r1:
+        interfaces:
+            GigabitEthernet0/1:
+                ipv4: 10.0.0.1/30
+                link: link-1
+                type: ethernet
+            Loopback0:
+                ipv4: 192.168.0.10/32
+                link: lax-edg-r1_Loopback0
+                type: loopback
+    lax-cor-r1:
+        interfaces:
+            Eth2/1:
+                ipv4: 10.0.0.2/30
+                link: link-1
+                type: ethernet
+            Loopback0:
+                ipv4: 192.168.0.100/32
+                link: lax-cor-r1_Loopback0
+                type: loopback
+     
+       

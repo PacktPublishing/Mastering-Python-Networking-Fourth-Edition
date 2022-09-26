@@ -1,0 +1,2366 @@
+lab:
+  description: Imported from 2_DC_Topology.virl
+  notes: |-
+    ## Import Progress
+    - processing node /lax-edg-r1 (iosv)
+    - processing node /lax-edg-r2 (iosv)
+    - processing node /nyc-edg-r1 (iosv)
+    - processing node /nyc-edg-r2 (iosv)
+    - processing node /lax-cor-r1 (nxosv)
+    - processing node /nyc-cor-r1 (nxosv)
+    - link GigabitEthernet0/1.lax-edg-r1 -> Ethernet2/1.lax-cor-r1
+    - link GigabitEthernet0/1.lax-edg-r2 -> Ethernet2/2.lax-cor-r1
+    - link GigabitEthernet0/1.nyc-edg-r1 -> Ethernet2/1.nyc-cor-r1
+    - link GigabitEthernet0/1.nyc-edg-r2 -> Ethernet2/2.nyc-cor-r1
+    - link Ethernet2/3.lax-cor-r1 -> Ethernet2/3.nyc-cor-r1
+  timestamp: 1615749425.6802542
+  title: 2_DC_Topology.yaml
+  version: 0.0.4
+nodes:
+  - id: n0
+    label: lax-edg-r1
+    node_definition: iosv
+    x: -100
+    y: 200
+    configuration: |-
+      !
+      ! Last configuration change at 02:26:08 UTC Fri Apr 17 2020 by cisco
+      !
+      version 15.6
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      !
+      hostname lax-edg-r1
+      !
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      vrf definition Mgmt-intf
+       !
+       address-family ipv4
+       exit-address-family
+       !
+       address-family ipv6
+       exit-address-family
+      !
+      enable password cisco
+      !
+      no aaa new-model
+      !
+      !
+      !
+      mmi polling-interval 60
+      no mmi auto-configure
+      no mmi pvc
+      mmi snmp-timeout 180
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      no ip domain lookup
+      ip domain name virl.info
+      ip cef
+      ipv6 unicast-routing
+      ipv6 cef
+      !
+      multilink bundle-name authenticated
+      !
+      !
+      !
+      !
+      username cisco privilege 15 secret 5 $1$AdPm$.vP28HCtgacNRfXR5duRd/
+      !
+      redundancy
+      !
+      no cdp run
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      interface Loopback0
+       description Loopback
+       ip address 192.168.0.10 255.255.255.255
+      !
+      interface GigabitEthernet0/0
+       description OOB Management
+       vrf forwarding Mgmt-intf
+       ip address 192.168.2.51 255.255.255.0
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/1
+       description to lax-cor-r1
+       ip address 10.0.0.1 255.255.128.0
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+        ! inserted by converter
+        no shutdown
+      !
+      router ospf 100
+       passive-interface Loopback0
+       network 10.0.0.0 0.0.127.255 area 100
+       network 192.168.0.10 0.0.0.0 area 100
+      !
+      router bgp 100
+       bgp router-id 192.168.0.10
+       bgp log-neighbor-changes
+       neighbor 192.168.0.11 remote-as 100
+       neighbor 192.168.0.11 description iBGP peer lax-edg-r2
+       neighbor 192.168.0.11 update-source Loopback0
+       neighbor 192.168.0.100 remote-as 100
+       neighbor 192.168.0.100 description iBGP peer lax-cor-r1
+       neighbor 192.168.0.100 update-source Loopback0
+       !
+       address-family ipv4
+        network 192.168.0.10 mask 255.255.255.255
+        neighbor 192.168.0.11 activate
+        neighbor 192.168.0.100 activate
+       exit-address-family
+      !
+      ip forward-protocol nd
+      !
+      !
+      no ip http server
+      no ip http secure-server
+      ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+      ip ssh server algorithm authentication password
+      ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+      !
+      ipv6 ioam timestamp
+      !
+      !
+      !
+      control-plane
+      !
+      banner exec `
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************`
+      banner incoming `
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************`
+      banner login `
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************`
+      !
+      line con 0
+       password cisco
+      line aux 0
+      line vty 0 4
+       exec-timeout 720 0
+       password cisco
+       login local
+       transport input telnet ssh
+      !
+      no scheduler allocate
+      !
+      end
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i1
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+  - id: n1
+    label: lax-edg-r2
+    node_definition: iosv
+    x: 150
+    y: 200
+    configuration: |-
+      !
+      ! Last configuration change at 17:44:48 UTC Thu Apr 16 2020
+      !
+      version 15.6
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      !
+      hostname lax-edg-r2
+      !
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      vrf definition Mgmt-intf
+       !
+       address-family ipv4
+       exit-address-family
+       !
+       address-family ipv6
+       exit-address-family
+      !
+      enable password cisco
+      !
+      no aaa new-model
+      !
+      !
+      !
+      mmi polling-interval 60
+      no mmi auto-configure
+      no mmi pvc
+      mmi snmp-timeout 180
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      no ip domain lookup
+      ip domain name virl.info
+      ip cef
+      ipv6 unicast-routing
+      ipv6 cef
+      !
+      multilink bundle-name authenticated
+      !
+      !
+      !
+      !
+      username cisco privilege 15 secret 5 $1$LPJl$8tARfKDUWyzO8LEq./2RT/
+      !
+      redundancy
+      !
+      no cdp run
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      interface Loopback0
+       description Loopback
+       ip address 192.168.0.11 255.255.255.255
+      !
+      interface GigabitEthernet0/0
+       description OOB Management
+       vrf forwarding Mgmt-intf
+       ip address 192.168.2.52 255.255.255.0
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/1
+       description to lax-cor-r1
+       ip address 10.0.128.2 255.255.128.0
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+        ! inserted by converter
+        no shutdown
+      !
+      router ospf 100
+       passive-interface Loopback0
+       network 10.0.128.0 0.0.127.255 area 100
+       network 192.168.0.11 0.0.0.0 area 100
+      !
+      router bgp 100
+       bgp router-id 192.168.0.11
+       bgp log-neighbor-changes
+       neighbor 192.168.0.10 remote-as 100
+       neighbor 192.168.0.10 description iBGP peer lax-edg-r1
+       neighbor 192.168.0.10 update-source Loopback0
+       neighbor 192.168.0.100 remote-as 100
+       neighbor 192.168.0.100 description iBGP peer lax-cor-r1
+       neighbor 192.168.0.100 update-source Loopback0
+       !
+       address-family ipv4
+        network 192.168.0.11 mask 255.255.255.255
+        neighbor 192.168.0.10 activate
+        neighbor 192.168.0.100 activate
+       exit-address-family
+      !
+      ip forward-protocol nd
+      !
+      !
+      no ip http server
+      no ip http secure-server
+      ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+      ip ssh server algorithm authentication password
+      ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+      !
+      ipv6 ioam timestamp
+      !
+      !
+      !
+      control-plane
+      !
+      banner exec `
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************`
+      banner incoming `
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************`
+      banner login `
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************`
+      !
+      line con 0
+       password cisco
+      line aux 0
+      line vty 0 4
+       exec-timeout 720 0
+       password cisco
+       login local
+       transport input telnet ssh
+      !
+      no scheduler allocate
+      !
+      end
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i1
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+  - id: n2
+    label: nyc-edg-r1
+    node_definition: iosv
+    x: 350
+    y: 200
+    configuration: |-
+      !
+      ! Last configuration change at 17:45:25 UTC Thu Apr 16 2020
+      !
+      version 15.6
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      !
+      hostname nyc-edg-r1
+      !
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      vrf definition Mgmt-intf
+       !
+       address-family ipv4
+       exit-address-family
+       !
+       address-family ipv6
+       exit-address-family
+      !
+      enable password cisco
+      !
+      no aaa new-model
+      !
+      !
+      !
+      mmi polling-interval 60
+      no mmi auto-configure
+      no mmi pvc
+      mmi snmp-timeout 180
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      no ip domain lookup
+      ip domain name virl.info
+      ip cef
+      ipv6 unicast-routing
+      ipv6 cef
+      !
+      multilink bundle-name authenticated
+      !
+      !
+      !
+      !
+      username cisco privilege 15 secret 5 $1$nMo.$UborfI9yTGPnN8926xJY/.
+      !
+      redundancy
+      !
+      no cdp run
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      interface Loopback0
+       description Loopback
+       ip address 192.168.0.12 255.255.255.255
+      !
+      interface GigabitEthernet0/0
+       description OOB Management
+       vrf forwarding Mgmt-intf
+       ip address 192.168.2.61 255.255.255.0
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/1
+       description to nyc-cor-r1
+       ip address 10.1.0.1 255.255.255.252
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+        ! inserted by converter
+        no shutdown
+      !
+      router ospf 200
+       passive-interface Loopback0
+       network 10.1.0.0 0.0.0.3 area 200
+       network 192.168.0.12 0.0.0.0 area 200
+      !
+      router bgp 200
+       bgp router-id 192.168.0.12
+       bgp log-neighbor-changes
+       neighbor 192.168.0.13 remote-as 200
+       neighbor 192.168.0.13 description iBGP peer nyc-edg-r2
+       neighbor 192.168.0.13 update-source Loopback0
+       neighbor 192.168.0.101 remote-as 200
+       neighbor 192.168.0.101 description iBGP peer nyc-cor-r1
+       neighbor 192.168.0.101 update-source Loopback0
+       !
+       address-family ipv4
+        network 192.168.0.12 mask 255.255.255.255
+        neighbor 192.168.0.13 activate
+        neighbor 192.168.0.101 activate
+       exit-address-family
+      !
+      ip forward-protocol nd
+      !
+      !
+      no ip http server
+      no ip http secure-server
+      ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+      ip ssh server algorithm authentication password
+      ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+      !
+      ipv6 ioam timestamp
+      !
+      !
+      !
+      control-plane
+      !
+      banner exec `
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************`
+      banner incoming `
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************`
+      banner login `
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************`
+      !
+      line con 0
+       password cisco
+      line aux 0
+      line vty 0 4
+       exec-timeout 720 0
+       password cisco
+       login local
+       transport input telnet ssh
+      !
+      no scheduler allocate
+      !
+      end
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i1
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+  - id: n3
+    label: nyc-edg-r2
+    node_definition: iosv
+    x: 550
+    y: 200
+    configuration: |-
+      Building configuration...
+
+
+      Current configuration : 4010 bytes
+      !
+      ! Last configuration change at 19:39:43 UTC Sun Mar 14 2021
+      !
+      version 15.8
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      !
+      hostname nyc-edg-r2
+      !
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      vrf definition Mgmt-intf
+       !
+       address-family ipv4
+       exit-address-family
+       !
+       address-family ipv6
+       exit-address-family
+      !
+      no logging console
+      enable password cisco
+      !
+      no aaa new-model
+      !
+      !
+      !
+      mmi polling-interval 60
+      no mmi auto-configure
+      no mmi pvc
+      mmi snmp-timeout 180
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      no ip domain lookup
+      ip domain name virl.info
+      ip cef
+      ipv6 unicast-routing
+      ipv6 cef
+      !
+      multilink bundle-name authenticated
+      !
+      !
+      !
+      !
+      username cisco privilege 15 secret 5 $1$IteA$X4kQsHnFJM8QVvwugRZXL1
+      !
+      redundancy
+      !
+      no cdp run
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      !
+      interface Loopback0
+       description Loopback
+       ip address 192.168.0.13 255.255.255.255
+      !
+      interface GigabitEthernet0/0
+       description OOB Management
+       vrf forwarding Mgmt-intf
+       ip address 192.168.2.62 255.255.255.0
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      interface GigabitEthernet0/1
+       description to nyc-cor-r1
+       ip address 10.1.128.2 255.255.255.252
+       ip ospf cost 1
+       duplex full
+       speed auto
+       media-type rj45
+      !
+      router ospf 200
+       passive-interface Loopback0
+       network 10.1.128.0 0.0.0.3 area 200
+       network 192.168.0.13 0.0.0.0 area 200
+      !
+      router bgp 200
+       bgp router-id 192.168.0.13
+       bgp log-neighbor-changes
+       neighbor 192.168.0.12 remote-as 200
+       neighbor 192.168.0.12 description iBGP peer nyc-edg-r1
+       neighbor 192.168.0.12 update-source Loopback0
+       neighbor 192.168.0.101 remote-as 200
+       neighbor 192.168.0.101 description iBGP peer nyc-cor-r1
+       neighbor 192.168.0.101 update-source Loopback0
+       !
+       address-family ipv4
+        network 192.168.0.13 mask 255.255.255.255
+        neighbor 192.168.0.12 activate
+        neighbor 192.168.0.101 activate
+       exit-address-family
+      !
+      ip forward-protocol nd
+      !
+      !
+      no ip http server
+      no ip http secure-server
+      ip ssh server algorithm authentication password
+      !
+      ipv6 ioam timestamp
+      !
+      !
+      !
+      control-plane
+      !
+      banner exec ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      banner incoming ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      banner login ^C
+      **************************************************************************
+      * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+      * education. IOSv is provided as-is and is not supported by Cisco's      *
+      * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+      * of the IOSv Software or Documentation to any third party for any       *
+      * purposes is expressly prohibited except as otherwise authorized by     *
+      * Cisco in writing.                                                      *
+      **************************************************************************^C
+      !
+      line con 0
+       exec-timeout 0 0
+       password cisco
+      line aux 0
+      line vty 0 4
+       exec-timeout 720 0
+       password cisco
+       login local
+       transport input telnet ssh
+      !
+      no scheduler allocate
+      !
+      end
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: GigabitEthernet0/0
+        type: physical
+      - id: i1
+        slot: 1
+        label: GigabitEthernet0/1
+        type: physical
+  - id: n4
+    label: lax-cor-r1
+    node_definition: nxosv
+    x: 50
+    y: -50
+    configuration: |2-
+
+      !Command: show running-config
+      !Time: Sun Oct 24 01:04:39 2021
+
+      version 7.3(0)D1(1)
+      power redundancy-mode redundant
+      license grace-period
+
+      hostname lax-cor-r1
+      vdc lax-cor-r1 id 1
+        limit-resource module-type m1 m1xl m2xl f2e
+        allocate interface Ethernet2/1-48
+        allocate interface Ethernet3/1-48
+        allocate interface Ethernet4/1-48
+        limit-resource vlan minimum 16 maximum 4094
+        limit-resource vrf minimum 2 maximum 4096
+        limit-resource port-channel minimum 0 maximum 768
+        limit-resource u4route-mem minimum 96 maximum 96
+        limit-resource u6route-mem minimum 24 maximum 24
+        limit-resource m4route-mem minimum 58 maximum 58
+        limit-resource m6route-mem minimum 8 maximum 8
+
+      feature telnet
+      feature nxapi
+
+      username admin password 5 $1$KuOSBsvW$Cy0TSD..gEBGBPjzpDgf51  role network-admin
+      username adminbackup password 5 !  role network-operator
+      username adminbackup passphrase  lifetime 99999 warntime 14 gracetime 3
+      username cisco password 5 $1$Nk7ZkwH0$fyiRmMMfIheqE3BqvcL0C1  role network-operator
+      username cisco role network-admin
+      username cisco passphrase  lifetime 99999 warntime 14 gracetime 3
+      username lab password 5 $1$buoy/oqy$.EXQz8rCn72ii8qtdldj00  role network-admin
+      username lab passphrase  lifetime 99999 warntime 14 gracetime 3
+      no password strength-check
+      ip domain-lookup
+      crypto key param rsa label lax-cor-r1 modulus 512
+      vlan dot1Q tag native
+      system default switchport
+      system jumbomtu 0
+      no logging event trunk-status enable
+      copp profile strict
+      snmp-server user lab network-admin auth md5 0x5ceb414591539ee35159fca86fdfa101 priv 0x5ceb414591539ee35159fca86fdfa101 localizedkey
+      snmp-server user admin network-admin auth md5 0x328945d53e05e8e7207f8c20b142f0b7 priv 0x328945d53e05e8e7207f8c20b142f0b7 localizedkey
+      snmp-server user cisco network-admin auth md5 0x55b3c64a53fb95518e75358ee75e82e9 priv 0x55b3c64a53fb95518e75358ee75e82e9 localizedkey
+      snmp-server user cisco network-operator
+      snmp-server user admin auth md5 0x328945d53e05e8e7207f8c20b142f0b7 priv 0x328945d53e05e8e7207f8c20b142f0b7 localizedkey engineID 128:0:0:9:3:0:0:0:0:0:0
+      rmon event 1 log trap public description FATAL(1) owner PMON@FATAL
+      rmon event 2 log trap public description CRITICAL(2) owner PMON@CRITICAL
+      rmon event 3 log trap public description ERROR(3) owner PMON@ERROR
+      rmon event 4 log trap public description WARNING(4) owner PMON@WARNING
+      rmon event 5 log trap public description INFORMATION(5) owner PMON@INFO
+      snmp-server enable traps link
+      snmp-server enable traps link cisco-xcvr-mon-status-chg
+
+      ip route 10.0.0.0/16 Null0 254
+      ip route 10.1.0.4/30 Null0 254
+      vlan 1
+
+      vrf context management
+      hardware forwarding unicast trace
+
+
+      interface mgmt0
+        description OOB Management
+        duplex full
+        vrf member management
+        ip address 192.168.2.50/24
+
+      interface Ethernet2/1
+        description to lax-edg-r1
+        no switchport
+        mac-address fa16.3e00.0001
+        ip address 10.0.0.2/17
+        no shutdown
+
+      interface Ethernet2/2
+        description to lax-edg-r2
+        no switchport
+        mac-address fa16.3e00.0002
+        ip address 10.0.128.1/17
+        no shutdown
+
+      interface Ethernet2/3
+        description to nyc-cor-r1
+        no switchport
+        mac-address fa16.3e00.0003
+        ip address 10.1.0.5/30
+        no shutdown
+
+      interface Ethernet2/4
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/5
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/6
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/7
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/8
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/9
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/10
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/11
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/12
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/13
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/14
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/15
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/16
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/17
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/18
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/19
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/20
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/21
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/22
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/23
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/24
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/25
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/26
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/27
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/28
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/29
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/30
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/31
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/32
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/33
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/34
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/35
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/36
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/37
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/38
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/39
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/40
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/41
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/42
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/43
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/44
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/45
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/46
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/47
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/48
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet3/1
+        switchport
+
+      interface Ethernet3/2
+        switchport
+
+      interface Ethernet3/3
+        switchport
+
+      interface Ethernet3/4
+        switchport
+
+      interface Ethernet3/5
+        switchport
+
+      interface Ethernet3/6
+        switchport
+
+      interface Ethernet3/7
+        switchport
+
+      interface Ethernet3/8
+        switchport
+
+      interface Ethernet3/9
+        switchport
+
+      interface Ethernet3/10
+        switchport
+
+      interface Ethernet3/11
+        switchport
+
+      interface Ethernet3/12
+        switchport
+
+      interface Ethernet3/13
+        switchport
+
+      interface Ethernet3/14
+        switchport
+
+      interface Ethernet3/15
+        switchport
+
+      interface Ethernet3/16
+        switchport
+
+      interface Ethernet3/17
+        switchport
+
+      interface Ethernet3/18
+        switchport
+
+      interface Ethernet3/19
+        switchport
+
+      interface Ethernet3/20
+        switchport
+
+      interface Ethernet3/21
+        switchport
+
+      interface Ethernet3/22
+        switchport
+
+      interface Ethernet3/23
+        switchport
+
+      interface Ethernet3/24
+        switchport
+
+      interface Ethernet3/25
+        switchport
+
+      interface Ethernet3/26
+        switchport
+
+      interface Ethernet3/27
+        switchport
+
+      interface Ethernet3/28
+        switchport
+
+      interface Ethernet3/29
+        switchport
+
+      interface Ethernet3/30
+        switchport
+
+      interface Ethernet3/31
+        switchport
+
+      interface Ethernet3/32
+        switchport
+
+      interface Ethernet3/33
+        switchport
+
+      interface Ethernet3/34
+        switchport
+
+      interface Ethernet3/35
+        switchport
+
+      interface Ethernet3/36
+        switchport
+
+      interface Ethernet3/37
+        switchport
+
+      interface Ethernet3/38
+        switchport
+
+      interface Ethernet3/39
+        switchport
+
+      interface Ethernet3/40
+        switchport
+
+      interface Ethernet3/41
+        switchport
+
+      interface Ethernet3/42
+        switchport
+
+      interface Ethernet3/43
+        switchport
+
+      interface Ethernet3/44
+        switchport
+
+      interface Ethernet3/45
+        switchport
+
+      interface Ethernet3/46
+        switchport
+
+      interface Ethernet3/47
+        switchport
+
+      interface Ethernet3/48
+        switchport
+
+      interface Ethernet4/1
+        switchport
+
+      interface Ethernet4/2
+        switchport
+
+      interface Ethernet4/3
+        switchport
+
+      interface Ethernet4/4
+        switchport
+
+      interface Ethernet4/5
+        switchport
+
+      interface Ethernet4/6
+        switchport
+
+      interface Ethernet4/7
+        switchport
+
+      interface Ethernet4/8
+        switchport
+
+      interface Ethernet4/9
+        switchport
+
+      interface Ethernet4/10
+        switchport
+
+      interface Ethernet4/11
+        switchport
+
+      interface Ethernet4/12
+        switchport
+
+      interface Ethernet4/13
+        switchport
+
+      interface Ethernet4/14
+        switchport
+
+      interface Ethernet4/15
+        switchport
+
+      interface Ethernet4/16
+        switchport
+
+      interface Ethernet4/17
+        switchport
+
+      interface Ethernet4/18
+        switchport
+
+      interface Ethernet4/19
+        switchport
+
+      interface Ethernet4/20
+        switchport
+
+      interface Ethernet4/21
+        switchport
+
+      interface Ethernet4/22
+        switchport
+
+      interface Ethernet4/23
+        switchport
+
+      interface Ethernet4/24
+        switchport
+
+      interface Ethernet4/25
+        switchport
+
+      interface Ethernet4/26
+        switchport
+
+      interface Ethernet4/27
+        switchport
+
+      interface Ethernet4/28
+        switchport
+
+      interface Ethernet4/29
+        switchport
+
+      interface Ethernet4/30
+        switchport
+
+      interface Ethernet4/31
+        switchport
+
+      interface Ethernet4/32
+        switchport
+
+      interface Ethernet4/33
+        switchport
+
+      interface Ethernet4/34
+        switchport
+
+      interface Ethernet4/35
+        switchport
+
+      interface Ethernet4/36
+        switchport
+
+      interface Ethernet4/37
+        switchport
+
+      interface Ethernet4/38
+        switchport
+
+      interface Ethernet4/39
+        switchport
+
+      interface Ethernet4/40
+        switchport
+
+      interface Ethernet4/41
+        switchport
+
+      interface Ethernet4/42
+        switchport
+
+      interface Ethernet4/43
+        switchport
+
+      interface Ethernet4/44
+        switchport
+
+      interface Ethernet4/45
+        switchport
+
+      interface Ethernet4/46
+        switchport
+
+      interface Ethernet4/47
+        switchport
+
+      interface Ethernet4/48
+        switchport
+
+      interface loopback0
+        description Loopback
+        ip address 192.168.0.100/32
+      line console
+        exec-timeout 0
+        terminal width  511
+      line vty
+        exec-timeout 0
+      boot kickstart bootflash:/titanium-d1-kickstart.7.3.0.D1.1.bin
+      boot system bootflash:/titanium-d1.7.3.0.D1.1.bin
+      no logging console
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: mgmt0
+        type: physical
+      - id: i1
+        slot: 1
+        label: Ethernet2/1
+        type: physical
+      - id: i2
+        slot: 2
+        label: Ethernet2/2
+        type: physical
+      - id: i3
+        slot: 3
+        label: Ethernet2/3
+        type: physical
+  - id: n5
+    label: nyc-cor-r1
+    node_definition: nxosv
+    x: 400
+    y: -50
+    configuration: |
+      !Command: show running-config
+      !Time: Sat Apr 18 14:20:52 2020
+
+      version 7.3(0)D1(1)
+      power redundancy-mode redundant
+      license grace-period
+
+      hostname nyc-cor-r1
+      vdc nyc-cor-r1 id 1
+        limit-resource module-type m1 m1xl m2xl f2e
+        allocate interface Ethernet2/1-48
+        allocate interface Ethernet3/1-48
+        allocate interface Ethernet4/1-48
+        limit-resource vlan minimum 16 maximum 4094
+        limit-resource vrf minimum 2 maximum 4096
+        limit-resource port-channel minimum 0 maximum 768
+        limit-resource u4route-mem minimum 96 maximum 96
+        limit-resource u6route-mem minimum 24 maximum 24
+        limit-resource m4route-mem minimum 58 maximum 58
+        limit-resource m6route-mem minimum 8 maximum 8
+
+      feature telnet
+      feature ospf
+      feature bgp
+
+      username admin password 5 $1$KuOSBsvW$Cy0TSD..gEBGBPjzpDgf51  role network-admin
+      username adminbackup password 5 !  role network-operator
+      username adminbackup passphrase  lifetime 99999 warntime 14 gracetime 3
+      username cisco password 5 $1$Nk7ZkwH0$fyiRmMMfIheqE3BqvcL0C1  role network-operator
+      username cisco role network-admin
+      username cisco passphrase  lifetime 99999 warntime 14 gracetime 3
+      username lab password 5 $1$buoy/oqy$.EXQz8rCn72ii8qtdldj00  role network-admin
+      username lab passphrase  lifetime 99999 warntime 14 gracetime 3
+      no password strength-check
+      ip domain-lookup
+      vlan dot1Q tag native
+      system default switchport
+      system jumbomtu 0
+      no logging event trunk-status enable
+      copp profile strict
+      snmp-server user lab network-admin auth md5 0x5ceb414591539ee35159fca86fdfa101 priv 0x5ceb414591539ee35159fca86fdfa101 localizedkey
+      snmp-server user admin network-admin auth md5 0x328945d53e05e8e7207f8c20b142f0b7 priv 0x328945d53e05e8e7207f8c20b142f0b7 localizedkey
+      snmp-server user cisco network-admin auth md5 0x55b3c64a53fb95518e75358ee75e82e9 priv 0x55b3c64a53fb95518e75358ee75e82e9 localizedkey
+      snmp-server user cisco network-operator
+      snmp-server user admin auth md5 0x328945d53e05e8e7207f8c20b142f0b7 priv 0x328945d53e05e8e7207f8c20b142f0b7 localizedkey engineID 128:0:0:9:3:0:0:0:0:0:0
+      rmon event 1 log trap public description FATAL(1) owner PMON@FATAL
+      rmon event 2 log trap public description CRITICAL(2) owner PMON@CRITICAL
+      rmon event 3 log trap public description ERROR(3) owner PMON@ERROR
+      rmon event 4 log trap public description WARNING(4) owner PMON@WARNING
+      rmon event 5 log trap public description INFORMATION(5) owner PMON@INFO
+      snmp-server enable traps link
+      snmp-server enable traps link cisco-xcvr-mon-status-chg
+
+      ip route 10.1.0.0/30 Null0 254
+      ip route 10.1.128.0/30 Null0 254
+      vlan 1
+
+      vrf context management
+      hardware forwarding unicast trace
+
+
+      interface mgmt0
+        description OOB Management
+        duplex full
+        vrf member management
+        ip address 192.168.2.60/24
+
+      interface Ethernet2/1
+        description to nyc-edg-r1
+        no switchport
+        mac-address fa16.3e00.0005
+        ip address 10.1.0.2/30
+        ip router ospf 200 area 0.0.0.200
+        no shutdown
+
+      interface Ethernet2/2
+        description to nyc-edg-r2
+        no switchport
+        mac-address fa16.3e00.0006
+        ip address 10.1.128.1/30
+        ip router ospf 200 area 0.0.0.200
+        no shutdown
+
+      interface Ethernet2/3
+        description to lax-cor-r1
+        no switchport
+        mac-address fa16.3e00.0007
+        ip address 10.1.0.6/30
+        no shutdown
+
+      interface Ethernet2/4
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/5
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/6
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/7
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/8
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/9
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/10
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/11
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/12
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/13
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/14
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/15
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/16
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/17
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/18
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/19
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/20
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/21
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/22
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/23
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/24
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/25
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/26
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/27
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/28
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/29
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/30
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/31
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/32
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/33
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/34
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/35
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/36
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/37
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/38
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/39
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/40
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/41
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/42
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/43
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/44
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/45
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/46
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/47
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet2/48
+        shutdown
+        no switchport
+        mac-address 0000.0000.002f
+
+      interface Ethernet3/1
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/2
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/3
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/4
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/5
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/6
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/7
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/8
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/9
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/10
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/11
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/12
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/13
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/14
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/15
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/16
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/17
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/18
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/19
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/20
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/21
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/22
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/23
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/24
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/25
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/26
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/27
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/28
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/29
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/30
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/31
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/32
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/33
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/34
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/35
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/36
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/37
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/38
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/39
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/40
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/41
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/42
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/43
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/44
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/45
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/46
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/47
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet3/48
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/1
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/2
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/3
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/4
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/5
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/6
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/7
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/8
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/9
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/10
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/11
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/12
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/13
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/14
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/15
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/16
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/17
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/18
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/19
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/20
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/21
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/22
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/23
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/24
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/25
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/26
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/27
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/28
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/29
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/30
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/31
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/32
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/33
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/34
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/35
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/36
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/37
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/38
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/39
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/40
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/41
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/42
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/43
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/44
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/45
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/46
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/47
+        shutdown
+        no switchport
+        medium p2p
+
+      interface Ethernet4/48
+        shutdown
+        no switchport
+        medium p2p
+
+      interface loopback0
+        description Loopback
+        ip address 192.168.0.101/32
+        ip router ospf 200 area 0.0.0.200
+      line console
+      line vty
+      boot kickstart bootflash:/titanium-d1-kickstart.7.3.0.D1.1.bin
+      boot system bootflash:/titanium-d1.7.3.0.D1.1.bin
+      router ospf 200
+        router-id 192.168.0.101
+      router bgp 200
+        router-id 192.168.0.101
+        address-family ipv4 unicast
+          network 10.1.0.0/30
+          network 10.1.128.0/30
+          network 192.168.0.101/32
+        neighbor 10.1.0.5 remote-as 100
+          description eBGP peer lax-cor-r1
+          address-family ipv4 unicast
+            send-community
+            next-hop-self
+        neighbor 192.168.0.12 remote-as 200
+          description iBGP peer nyc-edg-r1
+          update-source loopback0
+          address-family ipv4 unicast
+            next-hop-self
+        neighbor 192.168.0.13 remote-as 200
+          description iBGP peer nyc-edg-r2
+          update-source loopback0
+          address-family ipv4 unicast
+            next-hop-self
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: mgmt0
+        type: physical
+      - id: i1
+        slot: 1
+        label: Ethernet2/1
+        type: physical
+      - id: i2
+        slot: 2
+        label: Ethernet2/2
+        type: physical
+      - id: i3
+        slot: 3
+        label: Ethernet2/3
+        type: physical
+  - id: n6
+    label: ext-conn-0
+    node_definition: external_connector
+    x: 850
+    y: -50
+    configuration: bridge0
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: port
+        type: physical
+  - id: n7
+    label: mgmt-unmanaged-switch
+    node_definition: unmanaged_switch
+    x: 750
+    y: 0
+    configuration: ''
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: port0
+        type: physical
+      - id: i1
+        slot: 1
+        label: port1
+        type: physical
+      - id: i2
+        slot: 2
+        label: port2
+        type: physical
+      - id: i3
+        slot: 3
+        label: port3
+        type: physical
+      - id: i4
+        slot: 4
+        label: port4
+        type: physical
+      - id: i5
+        slot: 5
+        label: port5
+        type: physical
+      - id: i6
+        slot: 6
+        label: port6
+        type: physical
+      - id: i7
+        slot: 7
+        label: port7
+        type: physical
+links:
+  - id: l0
+    i1: i1
+    n1: n0
+    i2: i1
+    n2: n4
+  - id: l1
+    i1: i1
+    n1: n1
+    i2: i2
+    n2: n4
+  - id: l2
+    i1: i1
+    n1: n2
+    i2: i1
+    n2: n5
+  - id: l3
+    i1: i1
+    n1: n3
+    i2: i2
+    n2: n5
+  - id: l4
+    i1: i3
+    n1: n4
+    i2: i3
+    n2: n5
+  - id: l5
+    i1: i0
+    n1: n4
+    i2: i0
+    n2: n7
+  - id: l6
+    i1: i0
+    n1: n5
+    i2: i1
+    n2: n7
+  - id: l7
+    i1: i0
+    n1: n0
+    i2: i2
+    n2: n7
+  - id: l8
+    i1: i0
+    n1: n1
+    i2: i3
+    n2: n7
+  - id: l9
+    i1: i0
+    n1: n2
+    i2: i4
+    n2: n7
+  - id: l10
+    i1: i0
+    n1: n3
+    i2: i5
+    n2: n7
+  - id: l11
+    i1: i6
+    n1: n7
+    i2: i0
+    n2: n6
