@@ -46,6 +46,10 @@ The new edition is revised and updated with Python 3.10 along with new chapters 
 To get the most out of this book, some basic hands-on network operation knowledge and Python knowledge is recommended. Most of the chapters can be read in any order, except for Chapter 4 and Chapter 5, which introduce base technologies that will be used later in the book. Besides the basic software and hardware tools introduced at the beginning of the book, new tools relevant to each of the chapters will be introduced in the respective chapters.
 It is highly recommended to follow and practice the examples shown in your network lab.
 
+### Important Information
+
+Refer to the [Errata](https://github.com/PacktPublishing/Mastering-Python-Networking-Fourth-Edition/blob/main/Errata.md) for corrections of typos and other mistakes and improvements like refactoring code.
+
 
 ## Know more on the Discord server <img alt="Coding" height="25" width="32"  src="https://cliply.co/wp-content/uploads/2021/08/372108630_DISCORD_LOGO_400.gif">
 
