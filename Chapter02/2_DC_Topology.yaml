@@ -6,8 +6,8 @@ lab:
     - processing node /lax-edg-r2 (iosv)
     - processing node /nyc-edg-r1 (iosv)
     - processing node /nyc-edg-r2 (iosv)
-    - processing node /lax-cor-r1 (nxosv)
-    - processing node /nyc-cor-r1 (nxosv)
+    - processing node /lax-cor-r1 (nxosv9000)
+    - processing node /nyc-cor-r1 (nxosv9000)
     - link GigabitEthernet0/1.lax-edg-r1 -> Ethernet2/1.lax-cor-r1
     - link GigabitEthernet0/1.lax-edg-r2 -> Ethernet2/2.lax-cor-r1
     - link GigabitEthernet0/1.nyc-edg-r1 -> Ethernet2/1.nyc-cor-r1
@@ -766,7 +766,7 @@ nodes:
         type: physical
   - id: n4
     label: lax-cor-r1
-    node_definition: nxosv
+    node_definition: nxosv9000
     x: 50
     y: -50
     configuration: |2-
@@ -1403,7 +1403,7 @@ nodes:
         type: physical
   - id: n5
     label: nyc-cor-r1
-    node_definition: nxosv
+    node_definition: nxosv9000
     x: 400
     y: -50
     configuration: |
