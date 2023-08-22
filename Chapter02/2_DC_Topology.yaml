@@ -769,7 +769,7 @@ nodes:
     node_definition: nxosv9000
     x: 50
     y: -50
-    configuration: |2-
+    configuration: |-
 
       !Command: show running-config
       !Time: Sun Oct 24 01:04:39 2021
@@ -1406,7 +1406,7 @@ nodes:
     node_definition: nxosv9000
     x: 400
     y: -50
-    configuration: |
+    configuration: |-
       !Command: show running-config
       !Time: Sat Apr 18 14:20:52 2020
 
