@@ -12,7 +12,7 @@ lab:
     - link GigabitEthernet0/1.lax-edg-r2 -> Ethernet1/2.lax-cor-r1
     - link GigabitEthernet0/1.nyc-edg-r1 -> Ethernet1/1.nyc-cor-r1
     - link GigabitEthernet0/1.nyc-edg-r2 -> Ethernet1/2.nyc-cor-r1
-    - link Ethernet2/3.lax-cor-r1 -> Ethernet2/3.nyc-cor-r1
+    - link Ethernet1/3.lax-cor-r1 -> Ethernet1/3.nyc-cor-r1
   timestamp: 1615749425.6802542
   title: 2_DC_Topology.yaml
   version: 0.0.4
