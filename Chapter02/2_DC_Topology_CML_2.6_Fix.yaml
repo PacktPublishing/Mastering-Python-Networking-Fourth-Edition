@@ -13,8 +13,8 @@ lab:
     - link GigabitEthernet0/1.nyc-edg-r1 -> Ethernet1/1.nyc-cor-r1
     - link GigabitEthernet0/1.nyc-edg-r2 -> Ethernet1/2.nyc-cor-r1
     - link Ethernet2/3.lax-cor-r1 -> Ethernet2/3.nyc-cor-r1
-  timestamp: 1695860215.4643636
-  title: 2_DC_Topology_CML_Fix.yaml
+  timestamp: 1615749425.6802542
+  title: 2_DC_Topology.yaml
   version: 0.0.4
 nodes:
   - id: n0
@@ -793,6 +793,8 @@ nodes:
         limit-resource m6route-mem minimum 8 maximum 8
 
       feature telnet
+      feature ospf
+      feature bgp
       feature nxapi
 
       username admin password 5 $1$KuOSBsvW$Cy0TSD..gEBGBPjzpDgf51  role network-admin
@@ -843,6 +845,7 @@ nodes:
         no switchport
         mac-address fa16.3e00.0001
         ip address 10.0.0.2/17
+        ip router ospf 100 area 0.0.0.100
         no shutdown
 
       interface Ethernet1/2
@@ -850,6 +853,7 @@ nodes:
         no switchport
         mac-address fa16.3e00.0002
         ip address 10.0.128.1/17
+        ip router ospf 100 area 0.0.0.100
         no shutdown
 
       interface Ethernet1/3
@@ -1375,6 +1379,7 @@ nodes:
       interface loopback0
         description Loopback
         ip address 192.168.0.100/32
+        ip router ospf 100 area 0.0.0.100
       line console
         exec-timeout 0
         terminal width  511
@@ -1382,7 +1387,30 @@ nodes:
         exec-timeout 0
       boot kickstart bootflash:/titanium-d1-kickstart.7.3.0.D1.1.bin
       boot system bootflash:/titanium-d1.7.3.0.D1.1.bin
-      no logging console
+      router ospf 100
+        router-id 192.168.0.100
+      router bgp 100
+        router-id 192.168.0.100
+        address-family ipv4 unicast
+          network 10.0.0.0/16
+          network 10.1.0.4/30
+          network 192.168.0.100/32
+        neighbor 10.1.0.6 remote-as 200
+          description eBGP peer nyc-cor-r1
+          address-family ipv4 unicast
+            send-community
+            next-hop-self
+        neighbor 192.168.0.10 remote-as 100
+          description iBGP peer lax-edg-r1
+          update-source loopback0
+          address-family ipv4 unicast
+            next-hop-self
+        neighbor 192.168.0.11 remote-as 100
+          description iBGP peer lax-edg-r2
+          update-source loopback0
+          address-family ipv4 unicast
+            next-hop-self
+      nxapi sandbox
     tags: []
     interfaces:
       - id: i0
@@ -1406,7 +1434,7 @@ nodes:
     node_definition: nxosv9000
     x: 400
     y: -50
-    configuration: |-
+    configuration: |
       !Command: show running-config
       !Time: Sat Apr 18 14:20:52 2020
 
