@@ -1,6 +1,3 @@
-
-<b><p align='center'>[![Packt Sale](https://static.packt-cdn.com/assets/images/humble+bundle/3.png)](https://www.humblebundle.com/books/networking-mastery-packt-books?utm_medium=affiliate&utm_campaign=&utm_term=472505a3-5e1b-ea11-a812-00224801bc51&utm_content=)</p></b> 
-
 # Mastering-Python-Networking-Fourth-Edition
 This is the code repository for [Mastering Python Networking Fourth Edition](https://www.amazon.com/Mastering-Python-Networking-frameworks-automation/dp/180323461X/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=&sr=), published by Packt.
 
